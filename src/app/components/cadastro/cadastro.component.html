@@ -1,35 +1,43 @@
-<h1>Cadastro Cliente</h1>
-
-<form [formGroup]="formCliente">
-    <div class="form-group">
-        <label>Nome:</label>
-        <input class="form-control" type="text" formControlName="Nome" required>
-        <div *ngIf="formCliente.controls['Nome'].invalid && (formCliente.controls['Nome'].dirty || formCliente.controls['Nome'].touched)">
-            <label class="text-danger">Campo obrigatório!</label>
-        </div>
-    </div>
-        <div class="form-group">
-        <label>Data de Nascimento:</label>
-        <input class="form-control" type="date" formControlName="DataNascimento" required>
-        <div *ngIf="formCliente.controls['DataNascimento'].invalid && (formCliente.controls['DataNascimento'].dirty || formCliente.controls['DataNascimento'].touched)">
-            <label class="text-danger">Campo obrigatório!</label>
-        </div>
-    </div>
-
+<div class="card">
+    <h4 class="card-header">Cadastro de Cliente</h4>
     
-    <div *ngIf="formEnderecos.controls.length > 0">
-        <div *ngFor="let endereco of formEnderecos.controls; let i = index;">
-            <h4>Endereco {{i + 1}} </h4>
-
-            <app-endereco [formEndereco]="formEnderecos.at(i)"></app-endereco>
-        </div>
+    <div class="card-body">
+        <form [formGroup]="formCliente">
+            <div class="form-group">
+                <label>Nome:</label>
+                <input class="form-control" type="text" formControlName="Nome" required>
+                <div *ngIf="formCliente.controls['Nome'].invalid && (formCliente.controls['Nome'].dirty || formCliente.controls['Nome'].touched)">
+                    <label class="text-danger">Campo obrigatório!</label>
+                </div>
+            </div>
+                <div class="form-group">
+                <label>Data de Nascimento:</label>
+                <input class="form-control" type="date" formControlName="DataNascimento" required>
+                <div *ngIf="formCliente.controls['DataNascimento'].invalid && (formCliente.controls['DataNascimento'].dirty || formCliente.controls['DataNascimento'].touched)">
+                    <label class="text-danger">Campo obrigatório!</label>
+                </div>
+            </div>
+        
+            
+            <div *ngIf="formEnderecos.controls.length > 0">
+                <div *ngFor="let endereco of formEnderecos.controls; let i = index;">
+                    <div class="card">
+                        <h4 class="card-header">Endereco {{i + 1}} </h4>
+                        <div class="card-body">
+                            <app-endereco [formEndereco]="formEnderecos.at(i)"></app-endereco>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <button class="btn btn-primary" (click)="onSubmit(formCliente.value)">Salvar</button>
+            <button class="btn btn-success right" (click)="adicionarEndereco()">Adicionar Endereco</button>
+            <button *ngIf="formEnderecos.controls.length > 1" class="btn btn-success right" (click)="removerEndereco()">Remover Endereco</button>
+            
+        </form>
     </div>
+</div>
 
-    <button class="btn btn-primary" (click)="onSubmit(formCliente.value)">Salvar</button>
-    <button class="btn btn-success right" (click)="adicionarEndereco()">Adicionar Endereco</button>
-    <button *ngIf="formEnderecos.controls.length > 1" class="btn btn-success right" (click)="removerEndereco()">Remover Endereco</button>
-    
-</form>
 
 
 

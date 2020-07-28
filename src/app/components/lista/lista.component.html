@@ -1,28 +1,32 @@
-<h4>Lista de Clientes</h4>
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">id</th>
-            <th scope="col">Nome</th>
-            <th scope="col">Data Nascimento</th>
-            <th scope="col">Endereco Principal</th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-        <tbody>
-            <tr *ngFor="let cliente of clientes">
-                <th scope="row">{{cliente.Id}}</th>
-                <td>{{cliente.Nome}}</td>
-                <td>{{cliente.DataNascimento | date: 'dd/MM/yyyy'}}</td>
-                <td>{{cliente.Enderecos[0].Cidade}}</td>
-                <td>
-                    <a href="#">Editar </a>
-                </td>
-                <td>
-                    <a href="#">Deletar </a>
-                </td>
-            </tr>
-        </tbody>
-</table>
+
+    <h4 class="title">Lista de Clientes</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Data Nascimento</th>
+                    <th scope="col">Endereco Principal</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+                <tbody>
+                    <tr class="table-hover" *ngFor="let cliente of clientes">
+                        <th scope="row">{{cliente.Id}}</th>
+                        <td>{{cliente.Nome}}</td>
+                        <td>{{cliente.DataNascimento | date: 'dd/MM/yyyy'}}</td>
+                        <td>{{cliente.Enderecos[0].Cidade}}</td>
+                        <td>
+                            <button (click)="editar(cliente)">Editar</button>
+                        </td>
+                        <td>
+                            <a href="#">Deletar </a>
+                        </td>
+                    </tr>
+                </tbody>
+        </table>
+
+
+
 

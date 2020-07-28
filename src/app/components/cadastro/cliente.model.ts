@@ -4,7 +4,7 @@ export class Cliente{
 
     Id: number;
     Nome: string;
-    DataNascimento: Date;
+    DataNascimento: string;
     Enderecos: Array<Endereco> = new Array<Endereco>();
 
 }

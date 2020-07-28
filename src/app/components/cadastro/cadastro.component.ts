@@ -1,6 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 import {FormBuilder, FormGroup, FormControl, FormArray, Validators} from '@angular/forms';
-import {Cliente} from './cliente.model'
+import {Cliente} from './cliente.model';
+import {CadastroService} from './cadastro.service';
+import { Endereco } from '../endereco/endereco.model';
 
 
 @Component({
@@ -11,29 +13,67 @@ import {Cliente} from './cliente.model'
 
 export class CadastroComponent implements OnInit {
 
-
+  @Input() editarCliente: Cliente;
 
   formCliente: FormGroup;
   formEnderecos: FormArray;
 
-  constructor(private form: FormBuilder) {
-    this.formCliente = this.form.group({
-      Nome: new FormControl(''),
-      DataNascimento: new FormControl(''),
-      Enderecos: new FormArray([])
-    })
-
-    this.formEnderecos = this.formCliente.controls.Enderecos as FormArray;
-    this.formEnderecos.push(this.criarEndereco());
+  constructor(private form: FormBuilder, private cadastroService: CadastroService) {
 
   }
 
 
-  onSubmit(form: Cliente){
- 
-    //Inserir lógica que chamará serviço de acesso a API
+  onSubmit(cliente: Cliente){ 
+    if(cliente.Id > 0){
 
+    }
+    else{
+
+      var limparCliente = new Cliente();
+      limparCliente.Enderecos.push(new Endereco());
+
+      this.cadastroService.saveCliente(cliente).subscribe(
+        result => {this.criarFormulario(limparCliente)}, 
+        error => {console.log(error)});   
+    }
   };
+
+  
+
+  criarFormulario(cliente: Cliente): void{
+    if (cliente != undefined) {
+      this.formCliente = this.form.group({
+        Nome: new FormControl(cliente.Nome),
+        DataNascimento: new FormControl(cliente.DataNascimento),
+        Enderecos: new FormArray([])
+      })
+  
+      this.formEnderecos = this.formCliente.controls.Enderecos as FormArray;
+      cliente.Enderecos.forEach(endereco => {
+        this.formEnderecos.push(
+          this.form.group({
+            Logradouro: [endereco.Logradouro],
+            Numero: [endereco.Numero],
+            Complemento:[endereco.Complemento],
+            Bairro: [endereco.Bairro],
+            Cidade: [endereco.Cidade],
+            Estado: [endereco.Estado]
+          })
+        );
+      });
+    }
+    else{
+      this.formCliente = this.form.group({
+        Nome: new FormControl(''),
+        DataNascimento: new FormControl(''),
+        Enderecos: new FormArray([])
+      })
+  
+      this.formEnderecos = this.formCliente.controls.Enderecos as FormArray;
+      this.formEnderecos.push(this.criarEndereco());
+    }
+  }
+
 
   //Função para inserir novo item do tipo Endereço no formulário dinâmico
   adicionarEndereco(): void{
@@ -62,7 +102,7 @@ export class CadastroComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.criarFormulario(this.editarCliente);
   }
 
 }

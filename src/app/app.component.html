@@ -6,10 +6,15 @@
 </div>
 
 <div class="container">
-    <app-lista></app-lista>
-    <app-cadastro></app-cadastro>
+    <app-lista (clienteSelecionado)="clienteSelecionado($event)"></app-lista>
+   
+    <button class="btn btn-primary btn-sm" (click)="limpar()">Limpar</button>
+    <div *ngIf="cliente != undefined">
+        <app-cadastro [editarCliente]="cliente"></app-cadastro>
+    </div>
+    <div *ngIf="cliente == undefined">
+        <app-cadastro [editarCliente]="cliente"></app-cadastro>
+    </div>
 </div>
-
-
 
 <router-outlet></router-outlet>
