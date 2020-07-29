@@ -1,6 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnChanges} from '@angular/core';
 import { Cliente } from './components/cadastro/cliente.model';
-import { DatePipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-root',
@@ -10,21 +10,28 @@ import { DatePipe } from '@angular/common';
 export class AppComponent implements OnInit {
 
   cliente: Cliente;
+  clientes: Array<Cliente> = new Array<Cliente>();
 
-    constructor(){
-    
+  constructor(){
+      
   }
 
   ngOnInit(){
-
+    
   }
 
   clienteSelecionado(cliente: Cliente): void{
     this.cliente = cliente;
   }
 
-  limpar(){
+  atualizarLista(clientes: Array<Cliente>){
+    this.clientes = clientes;
+  }
+
+  limparClienteSelecionado(limpar: boolean){
     this.cliente = undefined;
   }
+  
+
 
 }

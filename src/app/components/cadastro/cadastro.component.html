@@ -30,14 +30,17 @@
                 </div>
             </div>
         
-            <button class="btn btn-primary" (click)="onSubmit(formCliente.value)">Salvar</button>
-            <button class="btn btn-success right" (click)="adicionarEndereco()">Adicionar Endereco</button>
-            <button *ngIf="formEnderecos.controls.length > 1" class="btn btn-success right" (click)="removerEndereco()">Remover Endereco</button>
             
+            <button *ngIf="formCliente.controls.Id.value == ''" class="btn btn-primary" (click)="onSubmit(formCliente.value, false)">Salvar</button>
+            <button *ngIf="formCliente.controls.Id.value != ''" class="btn btn-primary" (click)="onSubmit(formCliente.value, true)">Editar</button>
+            <button *ngIf="formCliente.controls.Id.value != ''" class="btn btn-primary" (click)="onCancelarEdicao()">Cancelar</button>
+
+            <button class="btn btn-success right" (click)="adicionarEndereco()">Adicionar Endereco</button>
+            <button *ngIf="formEnderecos.controls.length > 1 && formEnderecos.value[formEnderecos.controls.length -1].Id == ''" class="btn btn-success right" (click)="removerEndereco()">Remover Endereco</button>
+            <button *ngIf="formEnderecos.controls.length > 1 && formEnderecos.value[formEnderecos.controls.length -1].Id != ''" class="btn btn-success right" (click)="deletarEndereco()">Deletar Endereco</button>
         </form>
     </div>
 </div>
-
 
 
 

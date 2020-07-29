@@ -6,14 +6,13 @@
 </div>
 
 <div class="container">
-    <app-lista (clienteSelecionado)="clienteSelecionado($event)"></app-lista>
+    <app-lista (clienteSelecionado)="clienteSelecionado($event)" [clientes] = "clientes"></app-lista>
    
-    <button class="btn btn-primary btn-sm" (click)="limpar()">Limpar</button>
     <div *ngIf="cliente != undefined">
-        <app-cadastro [editarCliente]="cliente"></app-cadastro>
+        <app-cadastro [editarCliente]="cliente" (clientes)="atualizarLista($event)" (cancelarEdicao)="limparClienteSelecionado($event)"></app-cadastro>
     </div>
     <div *ngIf="cliente == undefined">
-        <app-cadastro [editarCliente]="cliente"></app-cadastro>
+        <app-cadastro [editarCliente]="cliente" (clientes)="atualizarLista($event)" (cancelarEdicao)="limparClienteSelecionado($event)"></app-cadastro>
     </div>
 </div>
 

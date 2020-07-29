@@ -1,10 +1,10 @@
 import{Endereco} from '../endereco/endereco.model';
 
-export class Cliente{
+export class  Cliente{
 
-    Id: number;
-    Nome: string;
-    DataNascimento: string;
-    Enderecos: Array<Endereco> = new Array<Endereco>();
+    id: number = 0;
+    nome: string = '';
+    dataNascimento: string = '';
+    enderecos: Array<Endereco> = new Array<Endereco>();
 
 }
